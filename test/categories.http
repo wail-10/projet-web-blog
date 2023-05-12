@@ -1,0 +1,24 @@
+### get all users
+GET http://localhost:3000/categories
+
+### get a user by id
+GET http://localhost:3000/categories/2
+
+### add new user
+POST http://localhost:3000/categories
+Content-Type: application/json
+
+{ 
+    "title": "new cat"
+}
+
+### update an article
+PATCH http://localhost:3000/categories/1
+Content-Type: application/json
+
+{
+    "title": "this the updated categorie"
+}
+
+### delete an article
+DELETE http://localhost:3000/categories/1
