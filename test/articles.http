@@ -8,16 +8,22 @@ GET http://localhost:3000/articles/1
 POST http://localhost:3000/articles
 Content-Type: application/json
 
-{ 
-    "titre": "article 1", 
-    "contenu": "this is article 1"
+{
+    "titre": "this is a new Article",
+    "contenu": "This is an article content.",
+    "image": "new-article-image.jpg",
+    "published": true,
+    "utilisateurId": 2,
+    "categorieIds": [1, 2]
 }
+
 
 ### update an article
 PATCH http://localhost:3000/articles/1
 Content-Type: application/json
 
 {
+    "titre": "updated article",
     "contenu": "this the updated article"
 }
 

@@ -1,59 +1,100 @@
 const express = require('express');
 const router = express.Router();
 
-const articles = [
-    {id: 1, titre: 'article 1', contenu: 'this is article 1'},
-    {id: 2, titre: 'article 2', contenu: 'this is article 2'},
-    {id: 3, titre: 'article 3', contenu: 'this is article 3'},
-    {id: 4, titre: 'article 4', contenu: 'this is article 4'}
-]
+const { PrismaClient } = require('@prisma/client');
+const prisma = new PrismaClient();
+
 // Get all articles
-router.get('/', (req, res) => {
-    res.send(articles)
+router.get('/', async (req, res) => {
+    const articles = await prisma.Article.findMany();
+    res.json(articles)
 })
 
 // Get an article by id
-router.get('/:id', (req, res) => {
-    const article = articles.find( a => a.id === parseInt(req.params.id))
-    if (!article) return res.status(404).send('Article not found')
+router.get('/:id', async (req, res) => {
+    const article = await prisma.article.findUnique({
+        where: { id: parseInt(req.params.id) },
+    });
+    if (!article) {
+    return res.status(404).json({ error: 'Article not found' });
+    }
 
-    res.send(article)
+    res.json(article);
 })
 
 // Add a new article
-router.post('/', (req, res) => {
-    const article = {
-        id: articles.length + 1,
-        titre: req.body.titre,
-        contenu: req.body.contenu
+router.post('/', async (req, res) => {
+    const { titre, contenu, image, published, utilisateurId, categorieIds } = req.body;
+
+    try {
+        const article = await prisma.article.create({
+            data: {
+                titre,
+                contenu,
+                image,
+                published,
+                utilisateur: { connect: { id: utilisateurId } },
+                categories: { connect: categorieIds.map((categoryId) => ({ id: categoryId })) },
+            },
+        });
+    
+        res.json(article);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while creating the article' });
     }
-    articles.push(article)
-    res.send(article)
-})
+});
 
 // Update an existing article
-router.patch('/:id', (req, res) => {
-    const article = articles.find( a => a.id === parseInt(req.params.id))
-    if (!article) return res.status(404).send('Article not found')
-    
-    if(req.body.titre){
-        article.titre = req.body.titre;
-    }
+router.patch('/:id', async (req, res) => {
+    const { titre, contenu, image, published } = req.body;
 
-    if(req.body.contenu){
-        article.contenu = req.body.contenu;
+    try {
+        const updatedArticle = await prisma.article.update({
+            where: { id: parseInt(req.params.id) },
+            data: {
+                ...(titre && { titre }),
+                ...(contenu && { contenu }),
+                ...(image && { image }),
+                ...(published !== undefined && { published }),
+            },
+        });
+    
+        res.json(updatedArticle);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while updating the article' });
     }
-    res.send(article);
-})
+});
 
 // Delete an existing article
-router.delete('/:id', (req, res) => {
-    const article = articles.find( a => a.id === parseInt(req.params.id))
-    if (!article) return res.status(404).send('Course not found')
-
-    const item = articles.indexOf(article)
-    articles.splice(item, 1)
-    res.send(article)
-})
+router.delete('/:id', async (req, res) => {
+    try {
+        // Retrieve the article along with its associated commentaires
+        const article = await prisma.article.findUnique({
+            where: { id: parseInt(req.params.id) },
+            include: { commentaires: true },
+        });
+    
+        if (!article) {
+            return res.status(404).json({ error: 'Article not found' });
+        }
+    
+        // Delete the associated commentaires
+        const deletedCommentaires = await prisma.commentaire.deleteMany({
+            where: { articleId: article.id },
+        });
+    
+        // Delete the article
+        const deletedArticle = await prisma.article.delete({
+            where: { id: article.id },
+        });
+    
+        res.json({ deletedArticle, deletedCommentaires });
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'An error occurred while deleting the article' });
+    }
+});  
 
 module.exports = router;

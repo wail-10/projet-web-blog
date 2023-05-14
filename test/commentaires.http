@@ -8,17 +8,19 @@ GET http://localhost:3000/comments/2
 POST http://localhost:3000/comments
 Content-Type: application/json
 
-{ 
-    "description": "description of the new comment"
+{
+    "email": "driss@gmail.com",
+    "contenu": "this is a comment",
+    "articleId": 1
 }
 
 ### update an article
-PATCH http://localhost:3000/comments/1
+PATCH http://localhost:3000/comments/3
 Content-Type: application/json
 
 {
-    "description": "this the updated description of the new comment"
+    "contenu": "updated comment"
 }
 
 ### delete an article
-DELETE http://localhost:3000/comments/1
+DELETE http://localhost:3000/comments/2

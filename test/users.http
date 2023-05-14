@@ -8,17 +8,21 @@ GET http://localhost:3000/users/2
 POST http://localhost:3000/users
 Content-Type: application/json
 
-{ 
-    "name": "mohammed"
+{
+    "nom": "new user",
+    "email": "new.user@gmail.com",
+    "password": "1234",
+    "role": "AUTHOR"
 }
 
 ### update a user
-PATCH http://localhost:3000/users/1
+PATCH http://localhost:3000/users/3
 Content-Type: application/json
 
 {
-    "name": "updated user"
+    "nom": "yazid hakimi",
+    "password": "123456"
 }
 
 ### delete an article
-DELETE http://localhost:3000/users/1
+DELETE http://localhost:3000/users/2

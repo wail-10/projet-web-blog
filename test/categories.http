@@ -8,8 +8,8 @@ GET http://localhost:3000/categories/2
 POST http://localhost:3000/categories
 Content-Type: application/json
 
-{ 
-    "title": "new cat"
+{
+    "nom": "new categorie"
 }
 
 ### update an article
@@ -17,8 +17,8 @@ PATCH http://localhost:3000/categories/1
 Content-Type: application/json
 
 {
-    "title": "this the updated categorie"
+    "nom": "fashion"
 }
 
 ### delete an article
-DELETE http://localhost:3000/categories/1
+DELETE http://localhost:3000/categories/3

@@ -17,6 +17,7 @@
     "nodemon": "^2.0.22"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.0.0",
     "prisma": "^4.14.0"
   }
 }
