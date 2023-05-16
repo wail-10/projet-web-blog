@@ -1,10 +1,13 @@
 // var createError = require('http-errors');
 const express = require('express');
 const path = require('path');
+const cors = require('cors');
 // var cookieParser = require('cookie-parser');
 // var logger = require('morgan');
 
 const app = express();
+
+app.use(cors({ origin: true }));
 
 const index = require('./routes/index');
 const users = require('./routes/users');
