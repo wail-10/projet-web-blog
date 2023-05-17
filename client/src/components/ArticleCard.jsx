@@ -15,13 +15,13 @@ function ArticleCard(props) {
                     image={props.image}
                     alt="green iguana"
                 />
-                <CardContent sx={{ minHeight: 100 }}>
+                <CardContent sx={{ minHeight: 150 }}>
                     <Typography gutterBottom variant="h5" component="div">
                         {props.titre}
                     </Typography>
-                    {/* <Typography variant="body2" color="text.secondary">
-                        {props.contenu}
-                    </Typography> */}
+                    <Typography variant="body2" color="text.secondary">
+                        {props.contenu.slice(0, 50)}...
+                    </Typography>
                 </CardContent>
             </CardActionArea>
             <CardActions>

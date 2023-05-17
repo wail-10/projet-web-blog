@@ -16,7 +16,7 @@ function ArticlesGrid() {
     }, [])
 
     return (
-        <Box sx={{ width: '75%' }} className='absolute top-[80px] left-[320px]'>
+        <Box sx={{ width: '75%' }} className='absolute top-[120px] left-[320px]'>
             <Typography variant="h2" component="h2">
                 Articles
             </Typography>
@@ -26,7 +26,7 @@ function ArticlesGrid() {
                         <ArticleCard 
                             image={article.image} 
                             titre={article.titre} 
-                            //contenu={article.contenu} 
+                            contenu={article.contenu} 
                         />
                     </Grid>
                 ))}

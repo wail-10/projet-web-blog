@@ -28,4 +28,4 @@ Content-Type: application/json
 }
 
 ### delete an article
-DELETE http://localhost:3000/articles/1
+DELETE http://localhost:3000/articles/3

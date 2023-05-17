@@ -2,7 +2,7 @@
 GET http://localhost:3000/comments
 
 ### get a user by id
-GET http://localhost:3000/comments/2
+GET http://localhost:3000/comments/37
 
 ### add new user
 POST http://localhost:3000/comments
@@ -11,11 +11,11 @@ Content-Type: application/json
 {
     "email": "driss@gmail.com",
     "contenu": "this is a comment",
-    "articleId": 1
+    "articleId": 4
 }
 
 ### update an article
-PATCH http://localhost:3000/comments/3
+PATCH http://localhost:3000/comments/37
 Content-Type: application/json
 
 {
@@ -23,4 +23,4 @@ Content-Type: application/json
 }
 
 ### delete an article
-DELETE http://localhost:3000/comments/2
+DELETE http://localhost:3000/comments/37

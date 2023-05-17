@@ -2,7 +2,7 @@
 GET http://localhost:3000/users
 
 ### get a user by id
-GET http://localhost:3000/users/2
+GET http://localhost:3000/users/1
 
 ### add new user
 POST http://localhost:3000/users
@@ -16,7 +16,7 @@ Content-Type: application/json
 }
 
 ### update a user
-PATCH http://localhost:3000/users/3
+PATCH http://localhost:3000/users/1
 Content-Type: application/json
 
 {
@@ -25,4 +25,4 @@ Content-Type: application/json
 }
 
 ### delete an article
-DELETE http://localhost:3000/users/2
+DELETE http://localhost:3000/users/1
