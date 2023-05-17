@@ -32,7 +32,7 @@ model Article {
   createdAt    DateTime     @default(now())
   updatedAt    DateTime     @updatedAt
   published    Boolean
-  utilisateur  Utilisateur  @relation(fields: [utilisateurId], references: [id])
+  utilisateur  Utilisateur  @relation(fields: [utilisateurId], references: [id], onDelete: Cascade)
   utilisateurId Int
   categories   Categorie[]
   commentaires Commentaire[]
@@ -48,6 +48,6 @@ model Commentaire {
   id         Int       @id @default(autoincrement())
   email      String
   contenu    String
-  article    Article   @relation(fields: [articleId], references: [id])
+  article    Article   @relation(fields: [articleId], references: [id], onDelete: Cascade)
   articleId  Int
 }
