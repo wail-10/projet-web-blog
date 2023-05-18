@@ -1,30 +1,31 @@
-import React, {useState, useEffect} from 'react'
-import axios from 'axios'
+import React from 'react';
+import axios from 'axios';
 
-function SubNavBar() {
-    const [categories, setCategories] = useState([]);
+const SubNavbar = () => {
+  const [categories, setCategories] = React.useState([]);
 
-    useEffect(() => {
-        axios.get('http://localhost:3000/categories')
-        .then(res => setCategories(res.data))
-        .catch(err => console.log(err))
-    }, [])
+  React.useEffect(() => {
+      axios.get('http://localhost:3000/categories')
+      .then(res => setCategories(res.data))
+      .catch(err => console.log(err))
+  }, [])
 
-    return (
-        <nav className="bg-gray-50 dark:bg-gray-700 absolute top-[65px] w-full">
-            <div className="max-w-screen-xl px-4 py-3 mx-auto">
-                <div className="flex items-center">
-                    <ul className="flex flex-row font-medium mt-0 mr-6 space-x-8 text-sm">
-                    {categories.map(cat => (
-                        <li key={cat.id}>
-                            <a href="#" className="text-gray-900 dark:text-white hover:underline" aria-current="page">{cat.nom}</a>
-                        </li>
-                    ))}
-                    </ul>
-                </div>
-            </div>
-        </nav>
-    )
-}
+  return (
+    <nav className="bg-gray-800 mt-14">
+      <div className="container mx-auto px-4 py-2 flex flex-wrap items-center justify-center">
+        {categories.map((cat) => (
+          <a
+            href="#"
+            className="text-white text-sm font-medium mx-2 my-1"
+            key={cat.id}
+          >
+            {cat.nom} ({cat.articleCount})
+          </a>
+        ))}
+      </div>
+    </nav>
+  );
+};
 
-export default SubNavBar
+export default SubNavbar;
+

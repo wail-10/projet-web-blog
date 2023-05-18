@@ -1,11 +1,11 @@
-import React from 'react'
+import React from 'react';
 
-function Footer() {
-    return (     
-        <div className="w-full absolute bottom-0 h-[40px] items-center dark:bg-gray-900">
-            <span className='block text-sm text-gray-500 sm:text-center dark:text-gray-400'>© 2023 Flowbite™. All Rights Reserved.</span>
-        </div>
-    )
-}
+const Footer = () => {
+    return (
+        <footer className="bg-gray-900 py-4 text-center">
+        <p className="text-white">© 2023 wail-10. All Rights Reserved.</p>
+        </footer>
+    );
+};
 
-export default Footer
+export default Footer;

@@ -1,32 +1,71 @@
 import React from 'react';
 // import { ThemeProvider, createTheme } from '@mui/material/styles';
+import {
+  createBrowserRouter,
+  Outlet,
+  RouterProvider,
+} from "react-router-dom";
 import './index.css';
 import NavBar from './components/NavBar';
 import SubNavBar from './components/SubNavBar';
+import HeroSection from './components/HeroSection';
+import ArticleSection from './components/ArticleSection';
 import Footer from './components/Footer';
-import SideBar from './components/SideBar';
-import ArticlesGrid from './components/ArticlesGrid';
-// import ResponsiveAppBar from './components/ResponsiveAppBar';
-// import ResponsiveDrawer from './components/ResponsiveDrawer';
+import ArticlesByCategory from './components/ArticlesByCategory';
 
-// const darkTheme = createTheme({
-//   palette: {
-//     mode: 'dark',
-//   },
-// });
+const Layout = () => {
+  return (
+    <>
+      <NavBar />
+      <SubNavBar />
+      <Outlet />
+      <Footer />
+    </>
+  )
+}
+
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <Layout />,
+    children: [
+      {
+        path: "/",
+        element: <>
+          <HeroSection />
+          <ArticleSection />
+        </>,
+      },
+      {
+        path: "/categories/:id",
+        element: <ArticlesByCategory />,
+      }
+    ]
+  },
+  {
+    path: "/signin",
+    element: <div>signin</div>,
+    
+  },
+  {
+    path: "/signup",
+    element: <div>signup</div>,
+    
+  },
+]);
 
 function App() {
 
   return (
     // <ThemeProvider theme={darkTheme}>
       <div className="App">
-          {/* <ResponsiveAppBar /> */}
-          {/* <ResponsiveDrawer /> */}
-          <NavBar />
-          <SubNavBar />
-          <Footer />
-          {/* <SideBar />
-          <ArticlesGrid /> */}
+          
+          {/* <NavBar /> */}
+          <RouterProvider router={router} />
+          {/* <SubNavBar />
+          <HeroSection />
+          <ArticleSection />
+          <Footer /> */}
       </div>
     // </ThemeProvider>
   );

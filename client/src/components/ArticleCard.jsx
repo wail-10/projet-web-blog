@@ -1,36 +1,40 @@
-import React, {useEffect, useState} from 'react';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Typography from '@mui/material/Typography';
-import { CardActionArea, CardActions, Button } from '@mui/material';
+import React from 'react';
+// import { Link } from 'react-router-dom';
 
-function ArticleCard(props) {
+const ArticleCard = (props) => {
+
     return (
-        <Card sx={{ maxWidth: 500 }}>
-            <CardActionArea>
-                <CardMedia
-                    className='h-[300px]'
-                    component="img"
-                    image={props.image}
-                    alt="green iguana"
-                />
-                <CardContent sx={{ minHeight: 150 }}>
-                    <Typography gutterBottom variant="h5" component="div">
-                        {props.titre}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                        {props.contenu.slice(0, 50)}...
-                    </Typography>
-                </CardContent>
-            </CardActionArea>
-            <CardActions>
-                <Button size="small" color="primary">
-                Share
-                </Button>
-            </CardActions>
-        </Card>
-    )
-}
+        <div className="bg-white rounded shadow">
+            <img
+                src={props.image}
+                alt={props.titre}
+                className="h-48 w-full object-cover object-center rounded-t"
+            />
+            <div className="p-6">
+                <div className='min-h-[100px] max-h-[100px]'>
+                    <h3 className="text-xl font-bold mb-2">{props.titre}</h3>
+                </div>
+                <p className="text-gray-600">{props.contenu.slice(0, 60)}...</p>
+                <div className="flex items-center mt-4">
+                    <p className="text-sm text-gray-500">{props.createdAt.slice(0, 10)}</p>
+                    {/* <span className="mx-2 text-gray-300">|</span> */}
+                    {/* <p className="text-sm text-gray-500">{author}</p> */}
+                </div>
+                {/* <Link
+                    to={`/articles/${props.id}`}
+                    className="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+                >
+                    Read More
+                </Link> */}
+                <a 
+                    href="#"
+                    className="mt-4 inline-block px-4 py-2 bg-[#ebcdcf] text-white rounded hover:bg-[#f9c4c8]"
+                >
+                    Read More
+                </a>
+            </div>
+        </div>
+    );
+};
 
-export default ArticleCard
+export default ArticleCard;
