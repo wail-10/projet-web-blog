@@ -2,7 +2,9 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 const getAllArticles = async (req, res) => {
-    const articles = await prisma.Article.findMany();
+    const {skip, take} = req.query;
+    // console.log(req.query)
+    const articles = await prisma.Article.findMany({skip: parseInt(skip) || 0, take: parseInt(take) || 12});
     res.json(articles)
 }
 
@@ -71,11 +73,6 @@ const deleteArticle = async (req, res) => {
         if (!article) {
             return res.status(404).json({ error: 'Article not found' });
         }
-    
-        // Delete the associated commentaires
-        // const deletedCommentaires = await prisma.commentaire.deleteMany({
-        //     where: { articleId: article.id },
-        // });
     
         // Delete the article
         const deletedArticle = await prisma.article.delete({

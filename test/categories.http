@@ -2,7 +2,7 @@
 GET http://localhost:3000/categories
 
 ### get a user by id
-GET http://localhost:3000/categories/2
+GET http://localhost:3000/categories/12
 
 ### add new user
 POST http://localhost:3000/categories

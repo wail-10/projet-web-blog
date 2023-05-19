@@ -38,12 +38,12 @@ async function seed() {
         // Create 10 categories
         const categories = [];
         for (let i = 0; i < 10; i++) {
-        const categorie = await prisma.categorie.create({
-            data: {
-                nom: faker.word.sample(),
-            },
-        });
-        categories.push(categorie);
+            const categorie = await prisma.categorie.create({
+                data: {
+                    nom: faker.word.sample(),
+                },
+            });
+            categories.push(categorie);
         }
 
         // Create 100 articles with random categories and authors
@@ -54,25 +54,25 @@ async function seed() {
             data: {
                 titre: faker.lorem.sentence(),
                 contenu: faker.lorem.paragraphs(),
-                image: faker.image.url(), // Replace with a valid image URL 'https://example.com/image.jpg'
+                image: faker.image.url(), 
                 utilisateur: { connect: { id: randomAuthor.id } },
                 categories: {
                 connect: randomCategories.map((category) => ({ id: category.id })),
                 },
-                published: true, // or false depending on the desired value
+                published: true, 
             },
             });
         
             // Create 0 to 20 random comments for each article
             const numberOfComments = faker.number.int({ min: 0, max: 20 });
             for (let j = 0; j < numberOfComments; j++) {
-            await prisma.commentaire.create({
-                data: {
-                email: faker.internet.email(),
-                contenu: faker.lorem.sentences(),
-                article: { connect: { id: article.id } },
-                },
-            });
+                await prisma.commentaire.create({
+                    data: {
+                    email: faker.internet.email(),
+                    contenu: faker.lorem.sentences(),
+                    article: { connect: { id: article.id } },
+                    },
+                });
             }
         }
 
