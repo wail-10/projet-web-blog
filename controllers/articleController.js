@@ -11,6 +11,7 @@ const getAllArticles = async (req, res) => {
 const getArticleById = async (req, res) => {
     const article = await prisma.article.findUnique({
         where: { id: parseInt(req.params.id) },
+        include: { commentaires: true },
     });
     if (!article) {
         return res.status(404).json({ error: 'Article not found' });

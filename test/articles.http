@@ -2,7 +2,7 @@
 GET http://localhost:3000/articles
 
 ### get an article with id
-GET http://localhost:3000/articles/1
+GET http://localhost:3000/articles/102
 
 ### add new article
 POST http://localhost:3000/articles

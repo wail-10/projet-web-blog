@@ -18,35 +18,36 @@ const getAllCategories = async (req, res) => {
 }
 
 const getCategoryById = async (req, res) => {
-    // const categorie = await prisma.categorie.findUnique({
-    //     where: { id: parseInt(req.params.id) },
-    // });
-    // if (!categorie) {
-    //     return res.status(404).json({ error: 'Category not found' });
-    // }
-
-    // res.json(categorie);
-    const categoryId = parseInt(req.params.id);
-
-    try {
-    const articles = await prisma.article.findMany({
-        where: {
-            categories: {
-                some: {
-                id: categoryId,
-                },
-            },
-        },
-        include: {
-            categories: true,
-        },
+    const categorie = await prisma.categorie.findUnique({
+        where: { id: parseInt(req.params.id) },
+        include: { articles: true}
     });
-
-    res.json(articles);
-    } catch (error) {
-        console.error(error);
-        res.status(500).json({ error: 'An error occurred while retrieving articles' });
+    if (!categorie) {
+        return res.status(404).json({ error: 'Category not found' });
     }
+
+    res.json(categorie);
+    // const categoryId = parseInt(req.params.id);
+
+    // try {
+    // const articles = await prisma.article.findMany({
+    //     where: {
+    //         categories: {
+    //             some: {
+    //             id: categoryId,
+    //             },
+    //         },
+    //     },
+    //     include: {
+    //         categories: true,
+    //     },
+    // });
+
+    // res.json(articles);
+    // } catch (error) {
+    //     console.error(error);
+    //     res.status(500).json({ error: 'An error occurred while retrieving articles' });
+    // }
 }
 
 const createCategory = async (req, res) => {
