@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
-import ArticleCard from './ArticleCard';
 import { useParams } from 'react-router-dom';
+import ArticleCard from './ArticleCard';
 
 const CategorySection = () => {
     const { id } = useParams()

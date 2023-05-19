@@ -12,6 +12,9 @@ import HeroSection from './components/HeroSection';
 import ArticleSection from './components/ArticleSection';
 import Footer from './components/Footer';
 import ArticlesByCategory from './components/ArticlesByCategory';
+import Login from './components/Login';
+import Registration from './components/Registration';
+import BlogArticlePage from './components/BlogArticlePage';
 
 const Layout = () => {
   return (
@@ -39,17 +42,21 @@ const router = createBrowserRouter([
       {
         path: "/categories/:id",
         element: <ArticlesByCategory />,
-      }
+      },
+      {
+        path: "/articles/:id",
+        element: <BlogArticlePage />,
+      },
     ]
   },
   {
-    path: "/signin",
-    element: <div>signin</div>,
+    path: "/login",
+    element: <Login />,
     
   },
   {
-    path: "/signup",
-    element: <div>signup</div>,
+    path: "/register",
+    element: <Registration />,
     
   },
 ]);
@@ -57,17 +64,9 @@ const router = createBrowserRouter([
 function App() {
 
   return (
-    // <ThemeProvider theme={darkTheme}>
       <div className="App">
-          
-          {/* <NavBar /> */}
           <RouterProvider router={router} />
-          {/* <SubNavBar />
-          <HeroSection />
-          <ArticleSection />
-          <Footer /> */}
       </div>
-    // </ThemeProvider>
   );
 }
 

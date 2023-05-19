@@ -1,5 +1,5 @@
 import React from 'react';
-// import { Link } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
 const ArticleCard = (props) => {
 
@@ -20,18 +20,12 @@ const ArticleCard = (props) => {
                     {/* <span className="mx-2 text-gray-300">|</span> */}
                     {/* <p className="text-sm text-gray-500">{author}</p> */}
                 </div>
-                {/* <Link
+                <Link
                     to={`/articles/${props.id}`}
-                    className="mt-4 inline-block px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                >
-                    Read More
-                </Link> */}
-                <a 
-                    href="#"
                     className="mt-4 inline-block px-4 py-2 bg-[#ebcdcf] text-white rounded hover:bg-[#f9c4c8]"
                 >
                     Read More
-                </a>
+                </Link>
             </div>
         </div>
     );
