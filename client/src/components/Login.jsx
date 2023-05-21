@@ -1,13 +1,29 @@
 import React, { useState } from 'react';
+import { redirect, useNavigate } from 'react-router-dom';
+import axios from 'axios';
 
 const Login = () => {
+    let navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         // Handle login logic here
-        console.log('Login form submitted');
+        try {
+            const response = await axios.post('http://localhost:3000/auth/login', {
+                email,
+                password,
+            });
+            // Handle successful login response
+            console.log(response.data);
+            console.log('Login form submitted');
+            return navigate("/")
+        } catch (error) {
+            // Handle error
+            console.error(error.response.data);
+            console.log('Error on login form submission');
+        }
     };
 
     return (
@@ -40,7 +56,7 @@ const Login = () => {
             type="submit"
             className="w-full px-4 py-2 text-white bg-[#f9c4c8] rounded-md hover:bg-[#ebcdcf] focus:outline-none"
             >
-            Log in
+                Log in
             </button>
         </form>
         </div>
