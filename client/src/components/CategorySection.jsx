@@ -30,6 +30,7 @@ const CategorySection = () => {
                             contenu={article.contenu}
                             createdAt={article.createdAt}
                             id={article.id}
+                            author={article.utilisateur.nom}
                         />
                     ))}
                 </div>

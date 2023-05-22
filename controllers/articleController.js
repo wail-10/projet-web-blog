@@ -3,8 +3,17 @@ const prisma = new PrismaClient();
 
 const getAllArticles = async (req, res) => {
     const {skip, take} = req.query;
-    // console.log(req.query)
-    const articles = await prisma.Article.findMany({skip: parseInt(skip) || 0, take: parseInt(take) || 12});
+    const articles = await prisma.Article.findMany({
+        skip: parseInt(skip) || 0, 
+        take: parseInt(take) || 12,
+        include:{
+            utilisateur: {
+                select: {
+                    nom: true
+                }
+            }
+        }
+    });
     res.json(articles)
 }
 

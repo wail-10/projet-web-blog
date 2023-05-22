@@ -15,6 +15,7 @@ import ArticlesByCategory from './components/ArticlesByCategory';
 import Login from './components/Login';
 import Registration from './components/Registration';
 import BlogArticlePage from './components/BlogArticlePage';
+import ArticleForm from './components/ArticleForm';
 
 const Layout = () => {
   return (
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
           <HeroSection />
           <ArticleSection />
         </>,
+      },
+      {
+        path: "/add-article",
+        element: <ArticleForm />,
       },
       {
         path: "/categories/:id",

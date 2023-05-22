@@ -11,7 +11,7 @@ Content-Type: application/json
 {
     "email": "driss@gmail.com",
     "contenu": "this is a comment",
-    "articleId": 4
+    "articleId": 112
 }
 
 ### update an article

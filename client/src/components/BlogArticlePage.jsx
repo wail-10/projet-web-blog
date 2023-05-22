@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import axios from 'axios';
 import { useParams } from 'react-router-dom';
+import { AuthContext } from '../context/authContext';
 
 const BlogArticlePage = () => {
+    const {currentUser} = useContext(AuthContext)
     const { id } = useParams()
     const [article, setArticle] = React.useState({});
     const [comments, setComments] = React.useState([]);
+    const [commentContent, setCommentContent] = React.useState('');
+
 
     React.useEffect(() => {
         axios.get(`http://localhost:3000/articles/${id}`)
@@ -15,6 +19,22 @@ const BlogArticlePage = () => {
         })
         .catch(err => console.log(err.response.data))
     }, [id])
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('http://localhost:3000/comments', {
+                email: currentUser.email,
+                contenu: commentContent,
+                articleId: parseInt(id),
+            });
+            const newComment = response.data;
+            setComments([...comments, newComment]);
+            setCommentContent('');
+        } catch (error) {
+            console.error(error.response.data);
+        }
+    };      
     
     return (
         <div className="bg-gray-100 min-h-screen">
@@ -55,6 +75,26 @@ const BlogArticlePage = () => {
                             ))}
                         </ul>
                         )}
+                        {currentUser && 
+                            <form onSubmit={handleSubmit} className="mt-4">
+                                <div className="mb-4">
+                                    <label htmlFor="commentContent" className="block mb-2 text-gray-800">Add a comment:</label>
+                                    <textarea
+                                        id="commentContent"
+                                        className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:border-[#f9c4c8]"
+                                        value={commentContent}
+                                        onChange={(e) => setCommentContent(e.target.value)}
+                                        required
+                                    ></textarea>
+                                </div>
+                                <button
+                                    type="submit"
+                                    className="px-4 py-2 text-white bg-[#f9c4c8] rounded-md hover:bg-[#ebcdcf] focus:outline-none"
+                                >
+                                Submit Comment
+                                </button>
+                            </form>
+                        }
                     </div>
                 </div>
             </div>

@@ -20,7 +20,17 @@ const getAllCategories = async (req, res) => {
 const getCategoryById = async (req, res) => {
     const categorie = await prisma.categorie.findUnique({
         where: { id: parseInt(req.params.id) },
-        include: { articles: true}
+        include: {
+            articles: {
+                include: {
+                    utilisateur: {
+                        select: {
+                            nom: true
+                        }
+                    }
+                }
+            }
+        }
     });
     if (!categorie) {
         return res.status(404).json({ error: 'Category not found' });

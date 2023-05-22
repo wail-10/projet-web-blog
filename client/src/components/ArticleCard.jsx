@@ -17,8 +17,8 @@ const ArticleCard = (props) => {
                 <p className="text-gray-600">{props.contenu.slice(0, 60)}...</p>
                 <div className="flex items-center mt-4">
                     <p className="text-sm text-gray-500">{props.createdAt.slice(0, 10)}</p>
-                    {/* <span className="mx-2 text-gray-300">|</span> */}
-                    {/* <p className="text-sm text-gray-500">{author}</p> */}
+                    <span className="mx-2 text-gray-300">|</span>
+                    <p className="text-sm text-gray-500">{props.author}</p>
                 </div>
                 <Link
                     to={`/articles/${props.id}`}

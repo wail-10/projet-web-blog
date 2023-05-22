@@ -20,14 +20,16 @@ const createComment = async (req, res) => {
     const { email, contenu, articleId } = req.body;
 
     try {
+        await prisma.$transaction(async (prisma) => {
         const commentaire = await prisma.commentaire.create({
             data: {
                 email,
                 contenu,
-                article: { connect: { id: articleId } },
+                article: { connect: { id: parseInt(articleId) } },
             },
         });
-        res.json(commentaire);
+        
+        res.json(commentaire);})
     } catch (error) {
         console.error(error);
         res.status(500).json({ error: 'An error occurred while creating the comment' });
