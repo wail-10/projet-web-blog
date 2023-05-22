@@ -51,7 +51,7 @@ const BlogArticlePage = () => {
                         </div>
                     </div>
                     <div className="p-8">
-                        <p className="text-gray-500 mb-4">Published on {article.createdAt && article.createdAt.slice(0, 10)}</p>
+                        <p className="text-gray-500 mb-4">Published on {article.createdAt && article.createdAt.slice(0, 10)} | {article.utilisateur && article.utilisateur.nom} </p>
                         <blockquote className="border-l-4 border-[#f9c4c8] pl-4 mt-4">
                             <p> {article.contenu} </p>
                         </blockquote>

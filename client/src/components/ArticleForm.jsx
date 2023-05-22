@@ -19,11 +19,10 @@ const ArticleForm = () => {
         .catch(err => console.log(err))
     }, [])
     
-    React.useEffect(() => {
-        if (!currentUser) {
-            navigate("/login");
-        }
-    }, [currentUser, navigate]);
+    
+    if (!currentUser) {
+        return navigate("/login");
+    }
     var utilisateurId = currentUser.id;
 
     const handleTitleChange = (e) => {
@@ -130,7 +129,7 @@ const ArticleForm = () => {
                         />
                         <span>Yes</span>
                     </div>
-                    <div className="mb-4">
+                    {/* <div className="mb-4">
                         <label htmlFor="categories" className="block font-semibold mb-2">
                         Categories
                         </label>
@@ -147,7 +146,32 @@ const ArticleForm = () => {
                                 </label>
                             </div>
                         ))}
-                    </div>
+                    </div> */}
+                    <div className="mb-4">
+    <label htmlFor="categories" className="block font-semibold mb-2">
+        Categories
+    </label>
+    <div className="flex flex-wrap">
+        {cat.map((c) => (
+            <div key={c.id} className="flex items-center mr-4 mb-2">
+                <input
+                    type="checkbox"
+                    id={`category-${c.id}`}
+                    name="category"
+                    value={c.id}
+                    onChange={handleCategoryChange}
+                    className="mr-2"
+                />
+                <label
+                    htmlFor={`category-${c.id}`}
+                    className="text-gray-700 cursor-pointer select-none"
+                >
+                    {c.nom}
+                </label>
+            </div>
+        ))}
+    </div>
+</div>
                     <button type="submit" className="bg-[#f9c4c8] text-white px-4 py-2 rounded-lg">
                         Add Article
                     </button>

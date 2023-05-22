@@ -1,26 +1,60 @@
 const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
+// const getAllArticles = async (req, res) => {
+//     const {skip, take} = req.query;
+//     const articles = await prisma.Article.findMany({
+//         skip: parseInt(skip) || 0, 
+//         take: parseInt(take) || 12,
+//         include:{
+//             utilisateur: {
+//                 select: {
+//                     nom: true
+//                 }
+//             }
+//         }
+//     });
+//     res.json(articles)
+// }
 const getAllArticles = async (req, res) => {
-    const {skip, take} = req.query;
-    const articles = await prisma.Article.findMany({
-        skip: parseInt(skip) || 0, 
-        take: parseInt(take) || 12,
-        include:{
+    const { page = 1, perPage = 12 } = req.query;
+    const skip = (page - 1) * perPage;
+    const take = parseInt(perPage);
+
+    const articles = await prisma.article.findMany({
+        skip,
+        take,
+        orderBy: {
+            createdAt: 'desc',
+        },
+        include: {
+        utilisateur: {
+            select: {
+            nom: true,
+            },
+        },
+        },
+    });
+
+    const totalCount = await prisma.article.count();
+
+    res.json({
+        articles,
+        totalCount,
+    });
+    };  
+
+const getArticleById = async (req, res) => {
+    const article = await prisma.article.findUnique({
+        where: { id: parseInt(req.params.id) },
+        include: { 
+            commentaires: true,
             utilisateur: {
                 select: {
                     nom: true
                 }
             }
-        }
-    });
-    res.json(articles)
-}
-
-const getArticleById = async (req, res) => {
-    const article = await prisma.article.findUnique({
-        where: { id: parseInt(req.params.id) },
-        include: { commentaires: true },
+        },
     });
     if (!article) {
         return res.status(404).json({ error: 'Article not found' });

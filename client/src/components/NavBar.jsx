@@ -10,10 +10,11 @@ const Navbar = () => {
     const links = currentUser ?
     [
         { page: "Home", link: "/" },
+        { page: "Add Article", link: "/add-article" },
         { page: "Logout", onClick: () => {
             logout()
             return navigate('/login')
-        }}
+        }},
     ]
     :
     [

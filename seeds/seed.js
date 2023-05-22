@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const { PrismaClient } = require('@prisma/client');
 const {faker} = require('@faker-js/faker/locale/en');
 
@@ -10,17 +11,19 @@ async function seed() {
         await prisma.article.deleteMany();
         await prisma.utilisateur.deleteMany();
         await prisma.categorie.deleteMany();
-
+        
+        const salt = await bcrypt.genSalt(10)
         // Create 10 utilisateurs with the role 'AUTHOR'
         const utilisateurs = [];
         for (let i = 0; i < 10; i++) {
-        const utilisateur = await prisma.utilisateur.create({
-            data: {
-                nom: faker.person.fullName(),
-                email: faker.internet.email(),
-                password: faker.internet.password(),
-                role: 'AUTHOR',
-            },
+            const password = await bcrypt.hash(faker.internet.password(), salt);
+            const utilisateur = await prisma.utilisateur.create({
+                data: {
+                    nom: faker.person.fullName(),
+                    email: faker.internet.email(),
+                    password: password,
+                    role: 'AUTHOR',
+                },
         });
         utilisateurs.push(utilisateur);
         }
@@ -30,7 +33,7 @@ async function seed() {
         data: {
             nom: faker.person.fullName(),
             email: faker.internet.email(),
-            password: faker.internet.password(),
+            password: await bcrypt.hash(faker.internet.password(), salt),
             role: 'ADMIN',
         },
         });

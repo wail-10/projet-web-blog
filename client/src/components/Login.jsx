@@ -49,6 +49,7 @@ const Login = () => {
                 required
             />
             </div>
+            {err && <p className='text-red-600 text-center my-2'>{err}</p>}
             <button
             type="submit"
             className="w-full px-4 py-2 text-white bg-[#f9c4c8] rounded-md hover:bg-[#ebcdcf] focus:outline-none"
