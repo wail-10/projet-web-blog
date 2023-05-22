@@ -1,28 +1,30 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { redirect, useNavigate } from 'react-router-dom';
 import axios from 'axios';
+import { AuthContext } from '../context/authContext';
 
 const Login = () => {
     let navigate = useNavigate();
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [err, setErr] = useState('');
+    const {login} = useContext(AuthContext)
+    // console.log(currentUser)
 
     const handleSubmit = async (e) => {
         e.preventDefault();
-        // Handle login logic here
         try {
-            const response = await axios.post('http://localhost:3000/auth/login', {
-                email,
-                password,
-            });
-            // Handle successful login response
-            console.log(response.data);
-            console.log('Login form submitted');
-            return navigate("/")
+            // const response = await axios.post('http://localhost:3000/auth/login', {
+            //     email,
+            //     password
+            // });
+            // console.log(response)
+            await login({email, password})
+            console.log('Login form submitted successfully');
+            return navigate('/')
         } catch (error) {
-            // Handle error
-            console.error(error.response.data);
-            console.log('Error on login form submission');
+            setErr(error.response.data.error);
+            console.log('An error occurred while submitting login');
         }
     };
 

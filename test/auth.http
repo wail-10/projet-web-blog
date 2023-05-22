@@ -3,8 +3,8 @@ POST http://localhost:3000/auth/register
 Content-Type: application/json
 
 {
-    "nom": "wail koundi",
-    "email": "wail@gmail.com",
+    "nom": "new user",
+    "email": "newuser4@gmail.com",
     "password": "1234"
 }
 
@@ -13,6 +13,9 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "wail@gmail.com",
+    "email": "newuser3@gmail.com",
     "password": "1234"
 }
+
+### get the current user
+GET http://localhost:3000/auth/me

@@ -1,11 +1,17 @@
-var createError = require('http-errors');
+// var createError = require('http-errors');
+const config = require('config');
 const express = require('express');
 const path = require('path');
 const cors = require('cors');
-// var cookieParser = require('cookie-parser');
+const cookieParser = require('cookie-parser');
 // var logger = require('morgan');
 
 const app = express();
+
+if(!config.get('jwtPrivateKey')){
+  console.error('FATAL ERROR: jwtPrivateKey is not defined');
+  process.exit(1);
+}
 
 app.use(cors({ origin: true }));
 
@@ -23,7 +29,7 @@ const auth = require('./routes/auth');
 // app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-// app.use(cookieParser());
+app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', index);
@@ -34,9 +40,9 @@ app.use('/comments', comments);
 app.use('/auth', auth);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  next(createError(404));
-});
+// app.use(function(req, res, next) {
+//   next(createError(404));
+// });
 
 // error handler
 // app.use(function(err, req, res, next) {

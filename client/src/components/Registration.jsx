@@ -1,10 +1,13 @@
 import React, { useState } from 'react';
 import axios from 'axios';
+import { useNavigate } from "react-router-dom";
 
 const Registration = () => {
+    const navigate = useNavigate();
     const [nom, setNom] = useState('');
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [err, setErr] = useState('');
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -15,12 +18,10 @@ const Registration = () => {
                 email,
                 password
             });
-            // Handle successful registration response
-            // console.log(response.data);
             console.log('Registration form submitted');
+            return navigate('/login')
         } catch (error) {
-            // Handle error
-            // console.error(error.response.data);
+            setErr(error.response.data.error);
             console.log('An error occurred while submitting registration');
         }
     };
@@ -62,6 +63,7 @@ const Registration = () => {
                     required
                 />
                 </div>
+                {err && <p className='text-red-600 text-center my-2'>{err}</p>}
                 <button
                     type="submit"
                     className="w-full px-4 py-2 text-white bg-[#f9c4c8] rounded-md hover:bg-[#ebcdcf] focus:outline-none"

@@ -10,18 +10,17 @@ Content-Type: application/json
 
 {
     "nom": "new user",
-    "email": "new.user@gmail.com",
+    "email": "new.user1@gmail.com",
     "password": "1234",
     "role": "AUTHOR"
 }
 
 ### update a user
-PATCH http://localhost:3000/users/1
+PATCH http://localhost:3000/users/24
 Content-Type: application/json
 
 {
-    "nom": "yazid hakimi",
-    "password": "123456"
+    "password": "1234"
 }
 
 ### delete an article
