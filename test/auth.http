@@ -13,9 +13,6 @@ POST http://localhost:3000/auth/login
 Content-Type: application/json
 
 {
-    "email": "newuser3@gmail.com",
+    "email": "mohammed@gmail.com",
     "password": "1234"
 }
-
-### get the current user
-GET http://localhost:3000/auth/me
